@@ -11,11 +11,15 @@ export default function Checkout() {
         userProgressCtx.hideCheckout();
     }
 
+    function Action(prevState, formData) {
+        const customerData = Object.fromEntries(formData.entries)
+
+    }
+
     async function handleSubmit(event) {
         event.preventDefault();
         const formData = new FormData(event.target);
         const customerData = Object.fromEntries(formData.entries());
-
         try {
             const response = await fetch('http://localhost:3000/orders', {
                 method: 'POST',
@@ -25,7 +29,7 @@ export default function Checkout() {
                 body: JSON.stringify({
                     order: {
                         items: cartCtx.items,
-                        customerData: customerData,
+                        customer: customerData,
                     },
                 }),
             });
